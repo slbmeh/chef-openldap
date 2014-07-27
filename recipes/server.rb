@@ -90,6 +90,11 @@ if (node['platform'] == "ubuntu")
     notifies :start, "service[slapd]", :immediately
   end
 
+  execute "slapd-set-rootpw" do
+    command "ldapmodify -Y EXTERNAL -H ldapi:/// -f #{node['openldap']['dir']}/rootpw.ldif"
+    action :nothing
+  end
+
   template "#{node['openldap']['dir']}/slapd.conf" do
     source "slapd.conf.erb"
     mode 00640
@@ -97,6 +102,14 @@ if (node['platform'] == "ubuntu")
     group "openldap"
     notifies :stop, "service[slapd]", :immediately
     notifies :run, "execute[slapd-config-convert]"
+  end
+
+  template "#{node['openldap']['dir']}/rootpw.ldif" do
+    source "rootpw.ldif.erb"
+    mode 00600
+    owner "openldap"
+    group "openldap"
+    notifies :run, "execute[slapd-set-rootpw]"
   end
 else
   case node['platform']
