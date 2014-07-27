@@ -93,6 +93,7 @@ if (node['platform'] == "ubuntu")
   execute "slapd-set-rootpw" do
     command "ldapmodify -Y EXTERNAL -H ldapi:/// -f #{node['openldap']['dir']}/rootpw.ldif"
     action :nothing
+    notifies :restart, "service[slapd]", :immediately
   end
 
   template "#{node['openldap']['dir']}/slapd.conf" do
