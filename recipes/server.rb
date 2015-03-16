@@ -18,8 +18,10 @@
 #
 include_recipe 'openldap::client'
 
-package node['openldap']['packages']['bdb'] do
-  action node['openldap']['package_install_action']
+if node['openldap']['packages']['bdb']
+  package node['openldap']['packages']['bdb'] do
+    action node['openldap']['package_install_action']
+  end
 end
 
 # the debian package needs a preseed file in order to silently install
