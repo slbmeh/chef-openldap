@@ -6,7 +6,7 @@ Configures a server to be an OpenLDAP master, OpenLDAP replication slave, or Ope
 Requirements
 ------------
 ### Platform
-- Ubuntu 10.04+
+- Ubuntu 12.04+
 - Debian
 
 ### Chef
