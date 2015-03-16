@@ -7,6 +7,7 @@ directory node[:openldap][:ssl_dir] do
   owner 'root'
   group 'root'
   mode 00755
+  recursive true
   action :create
 end
 
