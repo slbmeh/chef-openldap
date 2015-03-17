@@ -19,7 +19,7 @@ platforms:
 suites:
 - name: server
   run_list:
-    - recipe[openldap-test::default]
+    - recipe[openldap-test::hosts]
     - recipe[openldap::server]
     - recipe[openldap::auth]
     - recipe[minitest-handler]
@@ -53,6 +53,7 @@ suites:
       cafile: "/etc/ldap/ssl/ldap.example.com.pem"
 - name: tls_disabled
   run_list:
+  - recipe[openldap-test::hosts]
   - recipe[openldap::server]
   - recipe[openldap::auth]
   - recipe[minitest-handler]
